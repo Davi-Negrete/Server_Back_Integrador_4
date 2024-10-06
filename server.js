@@ -1,11 +1,13 @@
 import express from 'express'
 import 'dotenv/config'
 import routerProductos from './routers/productos.router.js'
+import getConnection from './utils/get-connection.js'
 
 // ! Variables/Constantes
-
 const app = express()
 const PORT = process.env.PORT || 2222
+const uri_remota = process.env.URI_MONGO
+
 
 // ! MidleWares
 
@@ -31,6 +33,7 @@ app.all('*', (req, res) => {
 
 app.listen(PORT, (error) => {
     if (error) throw new Error('No se pudo levantar el servidor', Error)
-  console.log(`Servidor corriendo en: http://localhost:${PORT}`)
+    console.log(`Servidor corriendo en: http://localhost:${PORT}`)
+    getConnection(uri_remota)
 })
 
