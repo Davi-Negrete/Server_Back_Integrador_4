@@ -12,7 +12,7 @@ const obtenerTodos = async ()  => {
         //  console.log(productos)
         return productos
     } catch (error) {
-        console.log('[obtenerTodos]', error)
+        throw error
     }
 
 }
@@ -24,7 +24,7 @@ const obtenerUnProducto = async (id)  => {
         // console.log(producto)
         return producto
     } catch (error) {
-        console.log('[obtenerUnProducto]', error)
+        throw error
     }
 
 }
@@ -36,12 +36,22 @@ const crearProducto = async (producto)  => {
          // console.log(productoCreado)
          return productoCreado
     } catch (error) {
-        console.log('[crearProducto]', error)
+        // console.log('[crearProducto]', error)
+        throw error // lanzo el error hacia arriba, hacia la funcion que este usando esta funcion.
     }
 
 }
 
-const updateProducto = ()  => {
+const updateProducto = async (id, productoPorEditadar)  => {
+
+    try {
+        const options = { new: true }
+        const productoYaEditado = await ProductosModelo.findByIdAndUpdate(id, productoPorEditadar, options)
+        // console.log(productoYaEditado)
+        return productoYaEditado
+    } catch (error) {
+        throw error // lanzo el error hacia arriba
+    }
 
 }
 
@@ -52,7 +62,7 @@ const deleteProducto = async (id)  => {
         // console.log(productoBorrado)
         return productoBorrado
     } catch (error) {
-        console.log('[deleteProducto]', error)
+        throw error
     }
 
 }

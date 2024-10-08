@@ -1,10 +1,11 @@
 import modelos from '../models/productos.models.js'
+import handleMongoId from '../utils/handle-mongo-id.js'
 
 const getAll = async (req, res) => {
 
     try {
         const productos = await modelos.obtenerTodos()
-        res.json({ productos }) 
+        res.json(handleMongoId(productos)) 
     } catch (error) {
         console.log('[getAll]', error)
     }
@@ -17,7 +18,7 @@ const getOne = async (req, res) => {
 
     try {
         const producto = await modelos.obtenerUnProducto(id)
-        res.json(producto)
+        res.json(handleMongoId(producto))
     } catch (error) {
         console.log('[getOne]', error)
     }
@@ -30,9 +31,7 @@ const create = async (req, res) => {
     
     try {
         const productoCreado = await modelos.crearProducto(producto)
-        res.status(201).json( {
-            producto: productoCreado
-        })
+        res.status(201).json(handleMongoId(productoCreado))
     } catch (error) {
         console.log('[create]', error)
     } 
@@ -42,11 +41,11 @@ const create = async (req, res) => {
 const update =  async (req, res) => {
 
     const id = req.params.id
-    const productoEditado = req.body
+    const productoPorEditar = req.body
     
     try {
-        const productoActualizado = await modelos.updateProducto(id, productoEditado)
-        res.send('Ok, -> PUT (UPDATE)')
+        const productoActualizado = await modelos.updateProducto(id, productoPorEditar)
+        res.json(handleMongoId(productoActualizado))
     } catch (error) {
         console.log('[update]', error)
     }
@@ -59,10 +58,7 @@ const remove = async (req, res) => {
     
     try {
         const productoBorrado = await modelos.deleteProducto(id)
-        console.log(productoBorrado)
-        res.json({
-            producto: productoBorrado
-        }) 
+        res.json(handleMongoId(productoBorrado)) 
     } catch (error) {
         console.log('[remove]', error)
     }
