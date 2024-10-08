@@ -2,6 +2,6 @@
 
 ## Luis David Negrete Otero
 
-### Link al Repo en GitHub : https://github.com/Davi-Negrete/Servidor_Back_Integrador_4
+### Link al Repo en GitHub : https://github.com/Davi-Negrete/Server_Back_Integrador_4 
 
-### Link al Render : Hola
+### Link al Render : 
